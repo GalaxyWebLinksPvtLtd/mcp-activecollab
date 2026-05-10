@@ -1,0 +1,32 @@
+{
+  "name": "mcp-activecollab",
+  "version": "1.0.0",
+  "description": "Production-ready MCP server for ActiveCollab project management",
+  "type": "module",
+  "main": "src/server.js",
+  "bin": {
+    "mcp-activecollab": "src/server.js"
+  },
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "axios": "^1.9.0",
+    "axios-retry": "^4.5.0",
+    "dotenv": "^16.5.0",
+    "zod": "^3.24.0"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "keywords": [
+    "mcp",
+    "activecollab",
+    "model-context-protocol",
+    "project-management",
+    "claude"
+  ],
+  "license": "MIT"
+}

@@ -1,0 +1,15 @@
+{
+  "mcpServers": {
+    "activecollab": {
+      "command": "node",
+      "args": ["/absolute/path/to/mcp-activecollab/src/server.js"],
+      "env": {
+        "ACTIVECOLLAB_API_TOKEN": "your_api_token_here",
+        "ACTIVECOLLAB_BASE_URL": "https://www.manageprojects.us/api/v1",
+        "REQUEST_TIMEOUT_MS": "30000",
+        "CACHE_TTL_PROJECTS_MS": "300000",
+        "CACHE_TTL_TASKS_MS": "60000"
+      }
+    }
+  }
+}
