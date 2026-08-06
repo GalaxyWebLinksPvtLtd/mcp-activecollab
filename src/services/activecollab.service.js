@@ -154,13 +154,15 @@ export class ActiveCollabService {
     return toArray(raw);
   }
 
-  async getTask(taskId) {
+  async getTask(projectId, taskId) {
     const raw = await this._get(
-      `tasks:${taskId}`,
+      `tasks:${projectId}:${taskId}`,
       config.cache.tasksTtlMs,
-      `/tasks/${taskId}`
+      `/projects/${projectId}/tasks/${taskId}`
     );
-    return raw;
+    // Single task detail responses wrap the task under "single", alongside
+    // "comments", "subscribers", etc.
+    return raw?.single ?? raw;
   }
 
   // ── Users ─────────────────────────────────────────────────────────────────
@@ -173,12 +175,14 @@ export class ActiveCollabService {
   // ── Comments ──────────────────────────────────────────────────────────────
 
   async getComments(projectId, taskId) {
+    // This ActiveCollab instance has no standalone /comments sub-route for
+    // tasks; comments are bundled into the task detail response instead.
     const raw = await this._get(
-      `comments:${projectId}:${taskId}`,
+      `tasks:${projectId}:${taskId}`,
       config.cache.tasksTtlMs,
-      `/projects/${projectId}/tasks/${taskId}/comments`
+      `/projects/${projectId}/tasks/${taskId}`
     );
-    return toArray(raw);
+    return toArray(raw?.comments);
   }
 
   // ── Reports / computed ────────────────────────────────────────────────────

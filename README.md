@@ -125,9 +125,9 @@ The server communicates over **stdio** (standard input/output) using the MCP JSO
 
 | Tool | Description | Inputs |
 |---|---|---|
-| `get_projects` | List all active projects with status and due dates | None |
+| `get_projects` | List projects with status and due dates | `include_trashed?` |
 | `get_project_tasks` | Get all tasks for a project, sorted by priority | `project_id` |
-| `get_task_details` | Full details with priority score and risk assessment | `task_id` |
+| `get_task_details` | Full details with priority score and risk assessment | `project_id`, `task_id` |
 | `get_overdue_tasks` | All overdue tasks with risk levels | None |
 | `get_tasks_due_today` | Tasks due today across all projects | None |
 | `search_tasks` | Search tasks by keyword, optionally within a project | `keyword`, `project_id?` |
