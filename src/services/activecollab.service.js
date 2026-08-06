@@ -160,7 +160,9 @@ export class ActiveCollabService {
       config.cache.tasksTtlMs,
       `/projects/${projectId}/tasks/${taskId}`
     );
-    return raw;
+    // Single task detail responses wrap the task under "single", alongside
+    // "comments", "subscribers", etc.
+    return raw?.single ?? raw;
   }
 
   // ── Users ─────────────────────────────────────────────────────────────────
