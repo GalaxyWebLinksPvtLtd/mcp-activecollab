@@ -154,11 +154,11 @@ export class ActiveCollabService {
     return toArray(raw);
   }
 
-  async getTask(taskId) {
+  async getTask(projectId, taskId) {
     const raw = await this._get(
-      `tasks:${taskId}`,
+      `tasks:${projectId}:${taskId}`,
       config.cache.tasksTtlMs,
-      `/tasks/${taskId}`
+      `/projects/${projectId}/tasks/${taskId}`
     );
     return raw;
   }

@@ -8,6 +8,11 @@ export function register(mcpServer, service) {
       description:
         'Get full details of a specific task including description, priority score, risk assessment, assignee, and due date.',
       inputSchema: {
+        project_id: z
+          .number()
+          .int()
+          .positive()
+          .describe('The numeric ID of the ActiveCollab project the task belongs to'),
         task_id: z
           .number()
           .int()
@@ -15,9 +20,9 @@ export function register(mcpServer, service) {
           .describe('The numeric ID of the task'),
       },
     },
-    async ({ task_id }) => {
+    async ({ project_id, task_id }) => {
       try {
-        const task = await service.getTask(task_id);
+        const task = await service.getTask(project_id, task_id);
         return { content: [{ type: 'text', text: formatTaskDetails(task) }] };
       } catch (err) {
         return {
