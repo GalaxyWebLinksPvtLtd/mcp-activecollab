@@ -6,14 +6,21 @@ export function register(mcpServer, service) {
     'get_projects',
     {
       description:
-        'List all active projects in ActiveCollab. Returns project names, IDs, statuses, due dates, and client names.',
+        'List projects in ActiveCollab. Returns project names, IDs, statuses, due dates, and client names. By default only active projects are shown; set include_trashed to true to also list archived/trashed projects.',
+      inputSchema: {
+        include_trashed: z
+          .boolean()
+          .optional()
+          .default(false)
+          .describe('Include archived/trashed projects in the results'),
+      },
     },
-    async () => {
+    async ({ include_trashed = false }) => {
       try {
         const projects = await service.getProjects();
-        const active = projects.filter((p) => !p.is_trashed);
+        const result = include_trashed ? projects : projects.filter((p) => !p.is_trashed);
         return {
-          content: [{ type: 'text', text: formatProjectList(active) }],
+          content: [{ type: 'text', text: formatProjectList(result) }],
         };
       } catch (err) {
         return {
