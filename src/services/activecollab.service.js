@@ -175,12 +175,14 @@ export class ActiveCollabService {
   // ── Comments ──────────────────────────────────────────────────────────────
 
   async getComments(projectId, taskId) {
+    // This ActiveCollab instance has no standalone /comments sub-route for
+    // tasks; comments are bundled into the task detail response instead.
     const raw = await this._get(
-      `comments:${projectId}:${taskId}`,
+      `tasks:${projectId}:${taskId}`,
       config.cache.tasksTtlMs,
-      `/projects/${projectId}/tasks/${taskId}/comments`
+      `/projects/${projectId}/tasks/${taskId}`
     );
-    return toArray(raw);
+    return toArray(raw?.comments);
   }
 
   // ── Reports / computed ────────────────────────────────────────────────────
